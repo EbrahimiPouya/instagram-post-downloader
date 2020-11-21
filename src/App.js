@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import PostImageSlider from "./components/PostDownloader";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showPost: false,
+            postUrl: undefined,
+        }
+    }
+
+    render() {
+
+        return (
+            <div className="App">
+                <h1>instagram public page post viewer</h1>
+                {
+                    this.state.showPost ?
+                        <PostImageSlider postId={this.state.postUrl}/>
+                        :
+                        <div><input type={'text'} onClick={(e)=>{
+                            this.setState({postUrl: e.target.value})
+                        }}/>
+                        <button onClick={() => {
+                            this.setState({showPost: true})
+                        }}>search
+                        </button>
+                    </div>
+                }
+            </div>
+        );
+    }
 }
 
 export default App;
